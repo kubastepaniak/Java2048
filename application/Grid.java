@@ -6,9 +6,12 @@ import javafx.scene.Node;
 
 public class Grid extends Group {
 
+	public static final int TILE_SIZE = 125;
+	public static final int MARGIN = 75;
+	public static final int SPACING = 10;
+
 	final int width;
 	final int height;
-	final int spacing = 10;
 	ObservableList<Node> nodesList;
 	Tile[][] gridItems;
 
@@ -22,24 +25,20 @@ public class Grid extends Group {
 	}
 
 	public void setup() {
-		for(int vertical = 0; vertical < height; vertical++) {
-			for(int horizontal = 0; horizontal < width; horizontal++) {
-				Tile newTile = new Tile((horizontal*150)+75, (vertical*150)+350, 125, 125);
-				gridItems[vertical][horizontal] = newTile;
+		for(int vertical = 1; vertical <= height; vertical++) {
+			for(int horizontal = 1; horizontal <= width; horizontal++) {
+				Tile newTile = new Tile(vertical * 10 + horizontal, TILE_SIZE);
+				gridItems[vertical - 1][horizontal - 1] = newTile;
 				nodesList.add(newTile);
 			}
 		}
 	}
 
-	public int getWidth() {
-		return width;
+	public int getPixelWidth() {
+		return 2 * MARGIN + width * (TILE_SIZE + SPACING);
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public int getSpacing() {
-		return spacing;
+	public int getPixelHeight() {
+		return 2 * MARGIN + height * (TILE_SIZE + SPACING);
 	}
 }

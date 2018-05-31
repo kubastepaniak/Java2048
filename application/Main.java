@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public static final int interfaceMargin = 250;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -14,7 +16,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Grid root = new Grid(4, 4);
-			Scene scene = new Scene(root, root.getWidth()*150 + 125, (root.getHeight()+1)*150 + 250);
+			Scene scene = new Scene(root, root.getPixelWidth(), root.getPixelHeight() + interfaceMargin);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Test");
 			primaryStage.show();

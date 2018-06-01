@@ -16,7 +16,7 @@ public class Grid extends GridPane {
 		this.width = width;
 		setHgap(SPACING);
 		setVgap(SPACING);
-		setPadding(new Insets(MARGIN + Main.interfaceMargin, MARGIN, MARGIN, MARGIN));
+		setPadding(new Insets(Main.interfaceMargin + MARGIN, MARGIN, MARGIN, MARGIN));
 		setup();
 	}
 

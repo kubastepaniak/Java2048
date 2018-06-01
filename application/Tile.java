@@ -1,12 +1,15 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Tile extends StackPane {
+public class Tile extends Pane {
 
 	public static final int TILE_SIZE = 125;
 
@@ -23,12 +26,15 @@ public class Tile extends StackPane {
 
 	public void setBG() {
 		if(taken) {
-			getChildren().clear();
-			Image image = new Image(getClass().getResourceAsStream(getFile()));
-			graphic = new ImageView(image);
-			graphic.setFitHeight(TILE_SIZE);
-			graphic.setFitWidth(TILE_SIZE);
-			getChildren().add(graphic);
+			try {
+				getChildren().clear();
+				graphic = new ImageView(new Image(new FileInputStream(getFile())));
+				graphic.setFitHeight(TILE_SIZE);
+				graphic.setFitWidth(TILE_SIZE);
+				getChildren().add(graphic);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			getChildren().clear();
@@ -49,7 +55,7 @@ public class Tile extends StackPane {
 	}
 
 	public String getFile() {
-		return "/resources/" + String.valueOf(value) + ".bmp";
+		return "graphics/" + String.valueOf(value) + ".bmp";
 	}
 
 }

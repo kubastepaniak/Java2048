@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	public static final int interfaceMargin = 250;
+	public static final int interfaceMargin = 300;
 
 	public static void main(String[] args) {
 		launch(args);

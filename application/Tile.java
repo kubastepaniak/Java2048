@@ -1,40 +1,37 @@
 package application;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
-public class Tile extends Pane {
+public class Tile extends StackPane {
 
 	public static final int TILE_SIZE = 125;
+	public static final int TEXT_FONT = 50;
 
-	boolean taken = false;
+	boolean taken;
 	int value = 2;
 	String index;
-	ImageView graphic;
+	Text text;
 	Rectangle background;
 
 	public Tile(String index) {
 		this.index = index;
+		this.taken = false;
 		setBG();
 	}
 
 	public void setBG() {
 		if(taken) {
-			try {
-				getChildren().clear();
-				graphic = new ImageView(new Image(new FileInputStream(getFile())));
-				graphic.setFitHeight(TILE_SIZE);
-				graphic.setFitWidth(TILE_SIZE);
-				getChildren().add(graphic);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			getChildren().clear();
+			background = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
+			background.setFill(Color.rgb(230, 200, 150));
+			text = new Text(String.valueOf(value));
+			text.setFont(new Font(TEXT_FONT));
+			text.setFill(Color.WHITE);
+			getChildren().addAll(background, text);
 		}
 		else {
 			getChildren().clear();
@@ -53,9 +50,4 @@ public class Tile extends Pane {
 		taken = false;
 		setBG();
 	}
-
-	public String getFile() {
-		return "graphics/" + String.valueOf(value) + ".bmp";
-	}
-
 }

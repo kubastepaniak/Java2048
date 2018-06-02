@@ -1,6 +1,7 @@
 package application;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class Grid extends GridPane {
@@ -24,10 +25,18 @@ public class Grid extends GridPane {
 		for(int vertical = 0; vertical < height; vertical++) {
 			for(int horizontal = 0; horizontal < width; horizontal++) {
 				Tile newTile = new Tile(String.valueOf(vertical * 10 + horizontal));
-				newTile.occupy();
 				add(newTile, horizontal, vertical);
 			}
 		}
+	}
+
+	public Node getNode(int horizontal, int vertical) {
+		for(Node node : this.getChildren()) {
+			if(Grid.getColumnIndex(node) == horizontal && Grid.getRowIndex(node) == vertical) {
+				return node;
+			}
+		}
+		return null;
 	}
 
 	public int getPixelWidth() {

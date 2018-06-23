@@ -46,6 +46,11 @@ public class Tile extends StackPane {
 		setBG();
 	}
 
+	public boolean isTaken() {
+		if(taken) return true;
+		else return false;
+	}
+
 	public void free() {
 		taken = false;
 		setBG();

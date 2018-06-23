@@ -17,6 +17,7 @@ public class Main extends Application {
 		try {
 			Grid root = new Grid(4, 4);
 			Scene scene = new Scene(root, root.getPixelWidth(), root.getPixelHeight() + interfaceMargin);
+			root.addTile();
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Test");
 			primaryStage.show();

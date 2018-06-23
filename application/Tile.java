@@ -13,12 +13,14 @@ public class Tile extends StackPane {
 
 	boolean taken;
 	int value = 2;
-	String index;
+	int verticalIndex;
+	int horizontalIndex;
 	Text text;
 	Rectangle background;
 
-	public Tile(String index) {
-		this.index = index;
+	public Tile(int hor, int ver) {
+		this.horizontalIndex = hor;
+		this.verticalIndex = ver;
 		this.taken = false;
 		setBG();
 	}

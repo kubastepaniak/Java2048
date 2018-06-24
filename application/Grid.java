@@ -11,14 +11,11 @@ public class Grid extends GridPane {
 	public static final int MARGIN = 75;
 	public static final int SPACING = 10;
 
-	public Tile[][] grid;
-	final int height;
-	final int width;
+	private Tile[][] grid = Main.grid;
+	private final int height = Main.height;
+	private final int width = Main.width;
 
 	public Grid(int height, int width) {
-		this.height = height;
-		this.width = width;
-		this.grid = new Tile[height][width];
 		setHgap(SPACING);
 		setVgap(SPACING);
 		setPadding(new Insets(Main.interfaceMargin + MARGIN, MARGIN, MARGIN, MARGIN));
@@ -31,6 +28,7 @@ public class Grid extends GridPane {
 				grid[horizontal][vertical] = new Tile(horizontal, vertical);
 			}
 		}
+		addTile();
 		addTile();
 		display();
 	}
@@ -47,6 +45,7 @@ public class Grid extends GridPane {
 	public void addTile() {
 		ArrayList<Integer[]> freeList = getFreeList();
 		Random generator = new Random();
+		System.out.println(freeList.size());
 		int roll = generator.nextInt(freeList.size());
 		grid[freeList.get(roll)[0]][freeList.get(roll)[1]].occupy();
 	}

@@ -54,13 +54,17 @@ public class Tile extends StackPane {
 		setBG();
 	}
 
+	public void free() {
+		taken = false;
+		setBG();
+	}
+
 	public boolean isTaken() {
 		if(taken) return true;
 		else return false;
 	}
 
-	public void free() {
-		taken = false;
-		setBG();
+	public void doubleValue() {
+		this.value = 2 * this.value;
 	}
 }

@@ -5,12 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class Engine implements EventHandler<KeyEvent> {
+public class Input implements EventHandler<KeyEvent> {
 
 	Grid grid;
 	Scene scene;
 
-	public Engine(Scene scene, Grid grid) {
+	public Input(Scene scene, Grid grid) {
 		this.scene = scene;
 		this.grid = grid;
 		scene.setOnKeyPressed(this);
@@ -22,10 +22,17 @@ public class Engine implements EventHandler<KeyEvent> {
 		   event.getCode() == KeyCode.UP ||
 		   event.getCode() == KeyCode.LEFT ||
 		   event.getCode() == KeyCode.RIGHT) {
+
 			Move move = new Move(event.getCode());
-			move.shift();
-			grid.addTile();
+			if(move.shift() || move.mergePossible()) {
+				while(move.mergePossible()) {
+					move.merge(move.mergeWhere());
+				}
+				move.shift();
+				grid.addTile();
+			}
 		}
+
 		if(event.getCode() == KeyCode.ESCAPE) {
 			System.exit(0);
 		}

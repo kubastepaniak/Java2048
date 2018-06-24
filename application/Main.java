@@ -21,7 +21,7 @@ public class Main extends Application {
 		try {
 			Grid root = new Grid(height, width);
 			Scene scene = new Scene(root, root.getPixelWidth(), root.getPixelHeight() + interfaceMargin);
-			Engine game = new Engine(scene, root);
+			Input game = new Input(scene, root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Test");
 			primaryStage.show();

@@ -58,7 +58,7 @@ public class Move {
 		if(direction == KeyCode.RIGHT || direction == KeyCode.LEFT) {
 	        for(int vert : jlist) {
 	            if(direction == KeyCode.RIGHT){
-	                klist = IntStream.range(vert + 1, 4).toArray();
+	                klist = IntStream.range(vert + 1, Main.width).toArray();
 	            }
 	            if(direction == KeyCode.LEFT) {
 	                klist = revRange(0, vert).toArray();
@@ -85,7 +85,7 @@ public class Move {
 		if(direction == KeyCode.UP || direction == KeyCode.DOWN) {
 	        for(int hor : ilist) {
 	            if(direction == KeyCode.DOWN) {
-	                klist = IntStream.range(hor + 1, Main.width).toArray();
+	                klist = IntStream.range(hor + 1, Main.height).toArray();
 	            }
 	            if(direction == KeyCode.UP) {
 	                klist = revRange(0, hor).toArray();
@@ -109,5 +109,83 @@ public class Move {
 	        }
 		}
 		return check;
+	}
+
+	public boolean mergePossible() {
+
+		int[] currentList = {};
+
+	    if(direction == KeyCode.RIGHT || direction == KeyCode.DOWN) {
+	    	currentList = revRange(1, 4).toArray();
+	    }
+	    if(direction == KeyCode.LEFT || direction == KeyCode.UP) {
+	    	currentList = IntStream.range(0, 3).toArray();
+	    }
+
+	    if(direction == KeyCode.RIGHT || direction == KeyCode.LEFT) {
+	        for(int vert : IntStream.range(0, 4).toArray()) {
+	            for(int hor : currentList) {
+	                if(Main.grid[vert][hor].taken && Main.grid[vert][change(hor)].taken &&
+	                   Main.grid[vert][hor].value == Main.grid[vert][change(hor)].value) {
+	                    return true;
+	                }
+	            }
+	        }
+	    }
+	    if(direction == KeyCode.UP || direction == KeyCode.DOWN) {
+	        for(int hor : IntStream.range(0, 4).toArray()) {
+	            for(int vert : currentList) {
+	                if(Main.grid[vert][hor].taken && Main.grid[change(vert)][hor].taken &&
+	                   Main.grid[vert][hor].value == Main.grid[change(vert)][hor].value) {
+	                    return true;
+	                }
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+	public int[][] mergeWhere() {
+
+		int[] currentList = {};
+
+	    if(direction == KeyCode.RIGHT || direction == KeyCode.DOWN) {
+	    	currentList = revRange(1, 4).toArray();
+	    }
+	    if(direction == KeyCode.LEFT || direction == KeyCode.UP) {
+	    	currentList = IntStream.range(0, 3).toArray();
+	    }
+
+	    if(direction == KeyCode.RIGHT || direction == KeyCode.LEFT) {
+	        for(int vert : IntStream.range(0, 4).toArray()) {
+	            for(int hor : currentList) {
+	                if(Main.grid[vert][hor].taken && Main.grid[vert][change(hor)].taken &&
+	                   Main.grid[vert][hor].value == Main.grid[vert][change(hor)].value) {
+	                    return new int[][] {{vert, change(hor)}, {vert, hor}};
+	                }
+	            }
+	        }
+	    }
+	    if(direction == KeyCode.UP || direction == KeyCode.DOWN) {
+	        for(int hor : IntStream.range(0, 4).toArray()) {
+	            for(int vert : currentList) {
+	                if(Main.grid[vert][hor].taken && Main.grid[change(vert)][hor].taken &&
+	                   Main.grid[vert][hor].value == Main.grid[change(vert)][hor].value) {
+	                    return new int[][] {{change(vert), hor}, {vert, hor}};
+	                }
+	            }
+	        }
+	    }
+	    return null;
+	}
+
+	public void merge(int[][] blocks) {
+
+		int[] first = blocks[0];
+		int[] second = blocks[1];
+
+		Main.grid[first[0]][first[1]].free();
+		// animations
+		Main.grid[second[0]][second[1]].doubleValue();
 	}
 }

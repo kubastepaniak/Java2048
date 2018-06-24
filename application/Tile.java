@@ -48,6 +48,12 @@ public class Tile extends StackPane {
 		setBG();
 	}
 
+	public void occupy(int points) {
+		taken = true;
+		value = points;
+		setBG();
+	}
+
 	public boolean isTaken() {
 		if(taken) return true;
 		else return false;

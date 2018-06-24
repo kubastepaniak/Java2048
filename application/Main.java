@@ -10,7 +10,7 @@ public class Main extends Application {
 
 	public static final int height = 4;
 	public static final int width = 4;
-	public static Tile[][] grid = new Tile[height][width];
+	public static Tile[][] grid = new Tile[width][height];
 
 	public static void main(String[] args) {
 		launch(args);

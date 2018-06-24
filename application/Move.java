@@ -65,14 +65,15 @@ public class Move {
 	            }
 	            for(int current : klist) {
 	                for(int hor : ilist) {
-	                    if(Main.grid[hor][change(current)].taken) {
-	                        Tile t1start = Main.grid[hor][change(current)];
-	                        Tile t1end = Main.grid[hor][current];
-	                        //t1start.set_surf(t1start.get_file()) <- dunno
+	                	if(Main.grid[change(current)][hor].taken) {
+	                        Tile t1start = Main.grid[change(current)][hor];
+	                        Tile t1end = Main.grid[current][hor];
+	                        // t1start.set_surf(t1start.get_file()) <- dunno still
 	                        if(t1start.taken && !t1end.taken) {
-	                            Main.grid[hor][change(current)].free();
-	                            // t1start = moveboxto(t1start, (t1end.rect[0], t1end.rect[1])) <- animation
-	                            Main.grid[hor][current] = t1start;
+	                            Main.grid[change(current)][hor].free();
+	                            //t1start = moveboxto(t1start, (t1end.rect[0], t1end.rect[1])) <- animation
+	                            //Main.grid[current][vert] = t1start;
+	                            Main.grid[current][hor].occupy(t1start.value);
 	                            check = true;
 	                        }
 	                    }
@@ -87,18 +88,19 @@ public class Move {
 	                klist = IntStream.range(hor + 1, Main.width).toArray();
 	            }
 	            if(direction == KeyCode.UP) {
-	                klist = revRange(0, Main.width).toArray();
+	                klist = revRange(0, hor).toArray();
 	            }
 	            for(int current : klist) {
 	                for(int vert : jlist) {
-	                    if(Main.grid[change(current)][vert].taken) {
-	                        Tile t1start = Main.grid[change(current)][vert];
-	                        Tile t1end = Main.grid[current][vert];
-	                        // t1start.set_surf(t1start.get_file()) <- dunno stil
+	                    if(Main.grid[vert][change(current)].taken) {
+	                        Tile t1start = Main.grid[vert][change(current)];
+	                        Tile t1end = Main.grid[vert][current];
+	                        //t1start.set_surf(t1start.get_file()) <- dunno
 	                        if(t1start.taken && !t1end.taken) {
-	                            Main.grid[change(current)][vert].free();
-	                            //t1start = moveboxto(t1start, (t1end.rect[0], t1end.rect[1])) <- animation
-	                            Main.grid[current][vert] = t1start;
+	                            Main.grid[vert][change(current)].free();
+	                            // t1start = moveboxto(t1start, (t1end.rect[0], t1end.rect[1])) <- animation
+	                            //Main.grid[hor][current] = t1start;
+	                            Main.grid[vert][current].occupy(t1start.value);
 	                            check = true;
 	                        }
 	                    }

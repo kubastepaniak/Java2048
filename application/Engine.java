@@ -26,20 +26,8 @@ public class Engine implements EventHandler<KeyEvent> {
 			move.shift();
 			grid.addTile();
 		}
-
-		/*if(event.getCode() == KeyCode.UP) {
-			move.shift();
-			grid.addTile();
+		if(event.getCode() == KeyCode.ESCAPE) {
+			System.exit(0);
 		}
-
-		if(event.getCode() == KeyCode.LEFT) {
-			move.shift();
-			grid.addTile();
-		}
-
-		if(event.getCode() == KeyCode.RIGHT) {
-			move.shift();
-			grid.addTile();
-		}*/
 	}
 }

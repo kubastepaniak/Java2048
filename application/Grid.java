@@ -31,6 +31,7 @@ public class Grid extends GridPane {
 				grid[horizontal][vertical] = new Tile(horizontal, vertical);
 			}
 		}
+		addTile();
 		display();
 	}
 

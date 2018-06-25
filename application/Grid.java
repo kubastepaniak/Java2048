@@ -12,10 +12,10 @@ public class Grid extends GridPane {
 	public static final int SPACING = 10;
 
 	private Tile[][] grid = Main.grid;
-	private final int height = Main.height;
-	private final int width = Main.width;
+	private final int cols = Main.cols;
+	private final int rows = Main.rows;
 
-	public Grid(int height, int width) {
+	public Grid() {
 		setHgap(SPACING);
 		setVgap(SPACING);
 		setPadding(new Insets(Main.interfaceMargin + MARGIN, MARGIN, MARGIN, MARGIN));
@@ -23,9 +23,9 @@ public class Grid extends GridPane {
 	}
 
 	public void setup() {
-		for(int vertical = 0; vertical < height; vertical++) {
-			for(int horizontal = 0; horizontal < width; horizontal++) {
-				grid[horizontal][vertical] = new Tile(horizontal, vertical);
+		for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < rows; row++) {
+				grid[col][row] = new Tile(col, row);
 			}
 		}
 		addTile();
@@ -35,9 +35,9 @@ public class Grid extends GridPane {
 
 	public void display() {
 		getChildren().clear();
-		for(int vertical = 0; vertical < height; vertical++) {
-			for(int horizontal = 0; horizontal < width; horizontal++) {
-				add(grid[horizontal][vertical], horizontal, vertical);
+		for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < rows; row++) {
+				add(grid[col][row], col, row);
 			}
 		}
 	}
@@ -52,10 +52,10 @@ public class Grid extends GridPane {
 
 	public ArrayList<Integer[]> getFreeList() {
 		ArrayList<Integer[]> freeList = new ArrayList<Integer[]>();
-		for(int vertical = 0; vertical < height; vertical++) {
-			for(int horizontal = 0; horizontal < width; horizontal++) {
-				if(!grid[horizontal][vertical].taken) {
-					freeList.add(new Integer[] {horizontal, vertical});
+		for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < rows; row++) {
+				if(!grid[col][row].taken) {
+					freeList.add(new Integer[] {col, row});
 				}
 			}
 		}
@@ -63,10 +63,10 @@ public class Grid extends GridPane {
 	}
 
 	public int getPixelWidth() {
-		return 2 * MARGIN + width * (Tile.TILE_SIZE + SPACING) - SPACING;
+		return 2 * MARGIN + cols * (Tile.TILE_SIZE + SPACING) - SPACING;
 	}
 
 	public int getPixelHeight() {
-		return 2 * MARGIN + height * (Tile.TILE_SIZE + SPACING) - SPACING;
+		return 2 * MARGIN + rows * (Tile.TILE_SIZE + SPACING) - SPACING;
 	}
 }

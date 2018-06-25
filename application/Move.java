@@ -34,8 +34,8 @@ public class Move {
 		int[] klist = {};
 
 		if(direction == KeyCode.RIGHT || direction == KeyCode.DOWN) {
-			jlist = revRange(0, Main.height - 1).toArray();
-	        ilist = IntStream.range(0, Main.width).toArray();
+			jlist = revRange(0, Main.cols - 1).toArray();
+	        ilist = IntStream.range(0, Main.rows).toArray();
 
 	        if(direction == KeyCode.DOWN) {
 	        	int[] swap = ilist;
@@ -45,8 +45,8 @@ public class Move {
 		}
 
 		if(direction == KeyCode.LEFT || direction == KeyCode.UP) {
-			jlist = IntStream.range(1, Main.height).toArray();
-	        ilist = IntStream.range(0, Main.width).toArray();
+			jlist = IntStream.range(1, Main.cols).toArray();
+	        ilist = IntStream.range(0, Main.rows).toArray();
 
 	        if(direction == KeyCode.UP) {
 	        	int[] swap = ilist;
@@ -58,7 +58,7 @@ public class Move {
 		if(direction == KeyCode.RIGHT || direction == KeyCode.LEFT) {
 	        for(int vert : jlist) {
 	            if(direction == KeyCode.RIGHT){
-	                klist = IntStream.range(vert + 1, Main.width).toArray();
+	                klist = IntStream.range(vert + 1, Main.rows).toArray();
 	            }
 	            if(direction == KeyCode.LEFT) {
 	                klist = revRange(0, vert).toArray();
@@ -85,7 +85,7 @@ public class Move {
 		if(direction == KeyCode.UP || direction == KeyCode.DOWN) {
 	        for(int hor : ilist) {
 	            if(direction == KeyCode.DOWN) {
-	                klist = IntStream.range(hor + 1, Main.height).toArray();
+	                klist = IntStream.range(hor + 1, Main.cols).toArray();
 	            }
 	            if(direction == KeyCode.UP) {
 	                klist = revRange(0, hor).toArray();

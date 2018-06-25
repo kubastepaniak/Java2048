@@ -6,21 +6,21 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Tile extends StackPane {
+public class Tile extends StackPane implements Cloneable {
 
 	public static final int TILE_SIZE = 125;
 	public static final int TEXT_FONT = 50;
 
 	boolean taken;
 	int value = 2;
-	int verticalIndex;
-	int horizontalIndex;
+	int colIndex;
+	int rowIndex;
 	Text text;
 	Rectangle background;
 
-	public Tile(int hor, int ver) {
-		this.horizontalIndex = hor;
-		this.verticalIndex = ver;
+	public Tile(int col, int row) {
+		this.colIndex = col;
+		this.rowIndex = row;
 		this.taken = false;
 		setBG();
 	}
@@ -59,12 +59,11 @@ public class Tile extends StackPane {
 		setBG();
 	}
 
-	public boolean isTaken() {
-		if(taken) return true;
-		else return false;
-	}
-
 	public void doubleValue() {
 		this.value = 2 * this.value;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }

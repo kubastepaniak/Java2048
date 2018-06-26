@@ -22,15 +22,9 @@ public class Input implements EventHandler<KeyEvent> {
 		   event.getCode() == KeyCode.UP ||
 		   event.getCode() == KeyCode.LEFT ||
 		   event.getCode() == KeyCode.RIGHT) {
-
 			Move move = new Move(event.getCode());
-			if(move.shift() || move.mergePossible()) {
-				while(move.mergePossible()) {
-					move.merge(move.mergeWhere());
-				}
-				move.shift();
-				grid.addTile();
-			}
+			move.shift();
+			grid.display();
 		}
 
 		if(event.getCode() == KeyCode.ESCAPE) {

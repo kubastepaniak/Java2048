@@ -6,19 +6,14 @@ import javafx.util.Duration;
 
 public class Animation {
 
-	private TranslateTransition animation;
-//	private Tile tile;
-//	private int colTo;
-//	private int rowTo;
+	public TranslateTransition animation;
 	private final KeyCode code;
 
-	//public Animation(Tile tile, int colTo, int rowTo, final KeyCode code) {
 	public Animation(Tile tile, final KeyCode code) {
-		//this.tile = tile;
-		//this.colTo = colTo;
-		//this.rowTo = rowTo;
 		this.code = code;
 		this.animation = new TranslateTransition(Duration.millis(500), tile);
+		Main.mask.toFront();
+		Main.mask.add(tile, tile.colIndex, tile.rowIndex);
 		setStep();
 	}
 

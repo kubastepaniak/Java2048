@@ -11,6 +11,7 @@ public class Tile extends StackPane implements Cloneable {
 	public static final int TILE_SIZE = 125;
 	public static final int TEXT_FONT = 50;
 
+	boolean dummy = false;
 	boolean taken;
 	int value = 2;
 	int colIndex;
@@ -25,26 +26,40 @@ public class Tile extends StackPane implements Cloneable {
 		setBG();
 	}
 
+	public Tile(int col, int row, boolean dummy) {
+		this.dummy = dummy;
+		setBG();
+	}
+
 	public void setBG() {
-		if(taken) {
-			getChildren().clear();
-			background = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
-			background.setFill(Color.rgb(230, 200, 150));
-			text = new Text(String.valueOf(value));
-			text.setFont(new Font(TEXT_FONT));
-			text.setFill(Color.WHITE);
-			getChildren().addAll(background, text);
-		}
-		else {
+		if(dummy) {
 			getChildren().clear();
 			background = new Rectangle(0 , 0, TILE_SIZE, TILE_SIZE);
-			background.setFill(Color.rgb(200, 150, 90));
+			background.setFill(Color.TRANSPARENT);
 			getChildren().add(background);
+		}
+		else {
+			if(taken) {
+				getChildren().clear();
+				background = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
+				background.setFill(Color.rgb(230, 200, 150));
+				text = new Text(String.valueOf(value));
+				text.setFont(new Font(TEXT_FONT));
+				text.setFill(Color.WHITE);
+				getChildren().addAll(background, text);
+			}
+			else {
+				getChildren().clear();
+				background = new Rectangle(0 , 0, TILE_SIZE, TILE_SIZE);
+				background.setFill(Color.rgb(200, 150, 90));
+				getChildren().add(background);
+			}
 		}
 	}
 
 	public void occupy() {
 		taken = true;
+		value = 2;
 		setBG();
 	}
 
@@ -56,6 +71,7 @@ public class Tile extends StackPane implements Cloneable {
 
 	public void free() {
 		taken = false;
+		value = 2;
 		setBG();
 	}
 

@@ -8,7 +8,6 @@ import javafx.scene.layout.GridPane;
 
 public class Grid extends GridPane {
 
-	public static final int MARGIN = 75;
 	public static final int SPACING = 10;
 
 	private Tile[][] grid = Main.grid;
@@ -18,8 +17,20 @@ public class Grid extends GridPane {
 	public Grid() {
 		setHgap(SPACING);
 		setVgap(SPACING);
-		setPadding(new Insets(Main.interfaceMargin + MARGIN, MARGIN, MARGIN, MARGIN));
+		setPadding(new Insets(SPACING));
+		setStyle("-fx-background-color: #bbada0;");
 		setup();
+	}
+
+
+	public static void print() {
+		System.out.print("\n");
+		for(int row = 0; row < Main.rows; row++) {
+			for(int col = 0; col < Main.cols; col++) {
+				System.out.print("{" + Main.grid[col][row].value + "}");
+			}
+			System.out.print("\n");
+		}
 	}
 
 	private void setup() {
@@ -61,11 +72,11 @@ public class Grid extends GridPane {
 		return freeList;
 	}
 
-	public int getPixelWidth() {
-		return 2 * MARGIN + cols * (Tile.TILE_SIZE + SPACING) - SPACING;
+	public static int getPixelWidth() {
+		return 2 * Main.margin + Main.cols * (Tile.TILE_SIZE + SPACING) + SPACING;
 	}
 
-	public int getPixelHeight() {
-		return 2 * MARGIN + rows * (Tile.TILE_SIZE + SPACING) - SPACING;
+	public static int getPixelHeight() {
+		return 2 * Main.margin + Main.rows * (Tile.TILE_SIZE + SPACING) + SPACING;
 	}
 }

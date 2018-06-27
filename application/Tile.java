@@ -9,42 +9,70 @@ import javafx.scene.text.Text;
 public class Tile extends StackPane {
 
 	public static final int TILE_SIZE = 125;
-	public static final int TEXT_FONT = 50;
 
 	boolean taken;
-	int value = 2;
+	int value;
 	int verticalIndex;
 	int horizontalIndex;
 	Text text;
 	Rectangle background;
 
 	public Tile(int hor, int ver) {
+		this.value = 0;
 		this.horizontalIndex = hor;
 		this.verticalIndex = ver;
 		this.taken = false;
 		setBG();
 	}
 
-	public void setBG() {
+	private void setBG() {
 		if(taken) {
 			getChildren().clear();
 			background = new Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
-			background.setFill(Color.rgb(230, 200, 150));
+			background.setFill(getRectColor());
 			text = new Text(String.valueOf(value));
-			text.setFont(new Font(TEXT_FONT));
-			text.setFill(Color.WHITE);
+			if(value < 1000) {
+				text.setFont(new Font(50));
+			} else {
+				text.setFont(new Font(30));
+			}
+			text.setStyle("-fx-font-weight: bold");
+			text.setFill(getTextColor());
 			getChildren().addAll(background, text);
 		}
 		else {
 			getChildren().clear();
 			background = new Rectangle(0 , 0, TILE_SIZE, TILE_SIZE);
-			background.setFill(Color.rgb(200, 150, 90));
+			background.setFill(Color.web("#cdc1b4"));
 			getChildren().add(background);
+		}
+	}
+
+	private Color getTextColor() {
+		if(value == 2 || value == 4) {
+			return Color.rgb(120, 110, 100);
+		} else {
+			return Color.WHITE;
+		}
+	}
+
+	private Color getRectColor() {
+		switch(value) {
+		case 2: return Color.web("#eee4da");
+		case 4: return Color.web("#ede0c8");
+		case 8: return Color.web("#f2b179");
+		case 16: return Color.web("#f59563");
+		case 32: return Color.web("#f67c5f");
+		case 64: return Color.web("#f65e3b");
+		case 128: return Color.web("#edcf72");
+		case 256: case 512:	case 1024: case 2048: return Color.web("#edc850");
+		default: return Color.WHITE;
 		}
 	}
 
 	public void occupy() {
 		taken = true;
+		value = 2;
 		setBG();
 	}
 
@@ -56,10 +84,14 @@ public class Tile extends StackPane {
 
 	public void free() {
 		taken = false;
+		value = 0;
 		setBG();
 	}
 
 	public void doubleValue() {
-		this.value = 2 * this.value;
+		this.value *= 2;
+		Main.score += value;
+		Interface.updateScore();
+		setBG();
 	}
 }

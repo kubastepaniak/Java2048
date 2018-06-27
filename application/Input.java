@@ -18,15 +18,14 @@ public class Input implements EventHandler<KeyEvent> {
 
 	@Override
 	public void handle(KeyEvent event) {
-		if(event.getCode() == KeyCode.DOWN ||
-		   event.getCode() == KeyCode.UP ||
-		   event.getCode() == KeyCode.LEFT ||
-		   event.getCode() == KeyCode.RIGHT) {
+		if(event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.UP ||
+		   event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
 			Move move = new Move(event.getCode());
-			while(move.shift()) {
+			if(move.mergePossible() || move.shift()) {
+				move.merge();
 				move.shift();
+				grid.addTile();
 			}
-			grid.display();
 		}
 
 		if(event.getCode() == KeyCode.ESCAPE) {

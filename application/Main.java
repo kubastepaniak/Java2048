@@ -16,6 +16,7 @@ public class Main extends Application {
 	public static Tile[][] grid = new Tile[cols][rows];
 
 	public static int score = 0;
+	public static int gamestate = 0;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -39,6 +40,14 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("2048");
 			primaryStage.show();
+
+			if(gamestate == 1) { // win
+				System.out.println("win");
+				System.exit(0);
+			} else if(gamestate == 2) { // fail
+				System.out.println("fail");
+				System.exit(0);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

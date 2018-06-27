@@ -93,5 +93,9 @@ public class Tile extends StackPane {
 		Main.score += value;
 		Interface.updateScore();
 		setBG();
+
+		if(this.value == 32) {
+			Main.gamestate = 1;
+		}
 	}
 }

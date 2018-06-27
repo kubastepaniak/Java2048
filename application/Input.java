@@ -23,7 +23,9 @@ public class Input implements EventHandler<KeyEvent> {
 		   event.getCode() == KeyCode.LEFT ||
 		   event.getCode() == KeyCode.RIGHT) {
 			Move move = new Move(event.getCode());
-			move.shift();
+			while(move.shift()) {
+				move.shift();
+			}
 			grid.display();
 		}
 

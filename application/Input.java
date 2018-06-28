@@ -18,29 +18,31 @@ public class Input implements EventHandler<KeyEvent> {
 
 	@Override
 	public void handle(KeyEvent event) {
-		if(event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.UP ||
-		   event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
-			Move move = new Move(event.getCode());
-			if(move.mergePossible() || move.shift()) {
-				move.merge();
-				move.shift();
-				grid.addTile();
-			}
+		if(Main.screens.current == "game") {
+			if(event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.UP ||
+			   event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
+				Move move = new Move(event.getCode());
+				if(move.mergePossible() || move.shift()) {
+					move.merge();
+					move.shift();
+					grid.addTile();
+				}
 
-			int failCondition = 0;
-			Move[] checks = {new Move(KeyCode.DOWN), new Move(KeyCode.UP), new Move(KeyCode.LEFT), new Move(KeyCode.RIGHT)};
-			for(Move m : checks) {
-				if(!m.mergePossible() && grid.getFreeList().size() == 0) {
-					failCondition++;
+				int failCondition = 0;
+				Move[] checks = {new Move(KeyCode.DOWN), new Move(KeyCode.UP), new Move(KeyCode.LEFT), new Move(KeyCode.RIGHT)};
+				for(Move m : checks) {
+					if(!m.mergePossible() && grid.getFreeList().size() == 0) {
+						failCondition++;
+					}
+				}
+				if(failCondition == 4) {
+					Main.screens.setScreen("fail");
 				}
 			}
-			if(failCondition == 4) {
-				Main.gamestate = 2;
-			}
-		}
 
-		if(event.getCode() == KeyCode.ESCAPE) {
-			System.exit(0);
+			if(event.getCode() == KeyCode.ESCAPE) {
+				System.exit(0);
+			}
 		}
 	}
 }

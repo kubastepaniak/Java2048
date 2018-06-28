@@ -94,8 +94,8 @@ public class Tile extends StackPane {
 		Interface.updateScore();
 		setBG();
 
-		if(this.value == 32) {
-			Main.gamestate = 1;
+		if(this.value == 2048) {
+			Main.screens.setScreen("win");
 		}
 	}
 }

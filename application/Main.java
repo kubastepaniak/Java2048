@@ -1,9 +1,8 @@
 package application;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -16,38 +15,26 @@ public class Main extends Application {
 	public static Tile[][] grid = new Tile[cols][rows];
 
 	public static int score = 0;
-	public static int gamestate = 0;
+	public static ScreenController screens = new ScreenController();
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane root = new GridPane();
-			Interface menu = new Interface();
-			Grid tileGrid = new Grid();
-			root.add(menu, 0, 0);
-			root.add(tileGrid, 0, 1);
-
-			root.setStyle("-fx-background-color: #faf8ef;");
-			root.setPadding(new Insets(margin));
-
+			Group root = new Group();
 			Scene scene = new Scene(root, Grid.getPixelWidth(), Grid.getPixelHeight() + interfaceMargin);
-			Input game = new Input(scene, tileGrid);
+
+
+			screens.setScene(scene);
+			screens.setup();
+			root.getChildren().add(screens);
+			screens.setScreen("menu");
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("2048");
 			primaryStage.show();
-
-			if(gamestate == 1) { // win
-				System.out.println("win");
-				System.exit(0);
-			} else if(gamestate == 2) { // fail
-				System.out.println("fail");
-				System.exit(0);
-			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

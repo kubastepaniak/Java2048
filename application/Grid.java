@@ -17,7 +17,8 @@ public class Grid extends GridPane {
 	public Grid() {
 		setHgap(SPACING);
 		setVgap(SPACING);
-		setPadding(new Insets(SPACING));
+		setPadding(new Insets(SPACING, SPACING, SPACING, SPACING));
+		setMargin(this, new Insets(0, 200, 0, 0));
 		setStyle("-fx-background-color: #bbada0;");
 		setup();
 	}
